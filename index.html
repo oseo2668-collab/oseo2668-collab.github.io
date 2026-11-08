@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>오서진 · 교육기획 HRD</title>
+<meta name="description" content="교육공학을 공부하고, 60개교 교육사업을 운영하는 오서진의 소개 페이지">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* 레이아웃: 왼쪽 정렬 단일 칼럼(최대 880px) + 상단 고정 메뉴. 경력은 날짜 칼럼이 있는 연대기, 사례는 상황→한 일→결과 */
+:root{
+  --bg:#f5f7f8;
+  --surface:#ffffff;
+  --fg:#18212b;
+  --muted:#5b6672;
+  --line:#dde3e7;
+  --accent:#0f6b6e;
+  --accent-soft:#e2f0ef;
+  --font-display:"IBM Plex Sans KR","Noto Sans KR",system-ui,sans-serif;
+  --font-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11171c;--surface:#182128;--fg:#e6ecef;--muted:#9aa7b1;--line:#2a353e;
+    --accent:#5cc3bf;--accent-soft:#1b3234;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11171c;--surface:#182128;--fg:#e6ecef;--muted:#9aa7b1;--line:#2a353e;
+  --accent:#5cc3bf;--accent-soft:#1b3234;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:880px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+
+/* 메뉴 */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
+.nav .brand{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--fg);text-decoration:none;white-space:nowrap}
+.nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none;min-width:0}
+.nav ul::-webkit-scrollbar{display:none}
+.nav ul a{color:var(--muted);text-decoration:none;font-size:14px;white-space:nowrap}
+.nav ul a:hover{color:var(--fg)}
+
+/* 첫 화면 */
+.hero{padding-block:72px 48px}
+.eyebrow{font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;color:var(--accent);margin:0 0 16px}
+.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(34px,6vw,52px);line-height:1.2;margin:0;letter-spacing:-.01em}
+.hero h1 small{display:block;font-family:var(--font-mono);font-weight:400;font-size:15px;color:var(--muted);letter-spacing:.08em;margin-top:8px}
+.hero .lead{font-size:clamp(18px,2.4vw,21px);line-height:1.65;margin:28px 0 0;max-width:34em;text-wrap:pretty}
+.hero .lead strong{color:var(--accent);font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:28px 0 0}
+.tags li{font-size:13px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--surface)}
+.contact-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:32px}
+.mail{font-family:var(--font-mono);font-size:15px;user-select:all}
+.btn{font:inherit;font-size:14px;cursor:pointer;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:6px;padding:7px 14px}
+.btn:hover{background:var(--accent-soft)}
+
+/* 숫자 */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:24px 16px 22px 0;display:flex;flex-direction:column;gap:4px}
+.stat + .stat{padding-left:20px;border-left:1px solid var(--line)}
+.stat b{font-family:var(--font-display);font-size:34px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat b span{font-size:16px;font-weight:500;margin-left:2px;color:var(--muted)}
+.stat p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+@media (max-width:680px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(3){padding-left:0;border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+}
+
+/* 섹션 공통 */
+section.block{padding-block:72px 8px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+.sec-head h2{font-family:var(--font-display);font-size:26px;font-weight:700;margin:0}
+.sec-head .en{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;color:var(--muted)}
+.prose{max-width:40em}
+.prose p{margin:0 0 14px}
+
+/* 일하는 방식 */
+.principle{border-left:3px solid var(--accent);padding:4px 0 4px 20px;margin:0 0 28px;font-family:var(--font-display);font-size:20px;font-weight:600;line-height:1.55;max-width:32em}
+.pattern{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pattern div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px}
+.pattern h3{font-size:15px;margin:0 0 6px;font-family:var(--font-display)}
+.pattern .when{font-family:var(--font-mono);font-size:12px;color:var(--accent)}
+.pattern p{margin:6px 0 0;font-size:14px;line-height:1.65;color:var(--muted)}
+@media (max-width:680px){.pattern{grid-template-columns:1fr}}
+
+/* 경력 */
+.job{display:grid;grid-template-columns:150px 1fr;gap:8px 28px;padding-block:28px;border-top:1px solid var(--line)}
+.job:first-of-type{border-top:0;padding-top:0}
+.job .when{font-family:var(--font-mono);font-size:13px;color:var(--muted);padding-top:4px;font-variant-numeric:tabular-nums}
+.job h3{font-family:var(--font-display);font-size:21px;margin:0}
+.job .role{color:var(--muted);margin:2px 0 12px;font-size:15px}
+.job .summary{margin:0 0 18px;max-width:40em}
+.job ul{margin:0;padding-left:18px}
+.job li{margin-bottom:6px}
+.job li::marker{color:var(--accent)}
+@media (max-width:620px){.job{grid-template-columns:1fr}}
+
+.job .impact{font-family:var(--font-display);font-size:clamp(19px,2.6vw,23px);font-weight:600;line-height:1.5;margin:4px 0 18px;max-width:28em;text-wrap:balance}
+.job .impact em{font-style:normal;color:var(--accent);background:linear-gradient(transparent 62%,var(--accent-soft) 62%)}
+.scale{list-style:none;padding:0;margin:0 0 20px;display:flex;flex-wrap:wrap;gap:8px 22px;color:var(--muted);font-size:14px}
+.scale b{font-family:var(--font-display);font-size:22px;color:var(--fg);margin-right:3px;font-variant-numeric:tabular-nums}
+.recog{margin:4px 0 22px;padding:12px 16px;background:var(--accent-soft);border-radius:8px;font-size:15px}
+.recog span{display:block;font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:.06em}
+
+/* 흐름 */
+.flow{list-style:none;padding:0;margin:20px 0 26px;position:relative}
+.flow::before{content:"";position:absolute;left:5px;top:10px;bottom:10px;width:1px;background:var(--line)}
+.flow li{position:relative;padding:0 0 18px 26px}
+.flow li::before{content:"";position:absolute;left:0;top:9px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.flow li:last-child::before{background:var(--accent)}
+.flow .m{font-family:var(--font-mono);font-size:12.5px;color:var(--accent);display:block;line-height:1.4}
+.flow b{font-weight:700;font-size:16.5px;display:block;margin-top:2px}
+.flow p{margin:2px 0 0;color:var(--muted);font-size:14.5px;line-height:1.65}
+
+/* 사례 */
+.cases{display:grid;gap:14px;margin-top:8px}
+details.case{background:var(--surface);border:1px solid var(--line);border-radius:8px}
+details.case summary{cursor:pointer;list-style:none;padding:16px 18px;display:flex;gap:12px;align-items:baseline;justify-content:space-between}
+details.case summary::-webkit-details-marker{display:none}
+details.case summary h4{margin:0;font-size:16px;font-family:var(--font-display);font-weight:600}
+details.case summary .num{font-family:var(--font-mono);font-size:13px;color:var(--accent);white-space:nowrap}
+details.case[open] summary{border-bottom:1px solid var(--line)}
+.case-body{padding:14px 18px 18px;display:grid;gap:10px}
+.case-body dl{margin:0;display:grid;grid-template-columns:64px 1fr;gap:6px 14px}
+.case-body dt{font-size:12.5px;color:var(--muted);font-family:var(--font-mono);padding-top:3px}
+.case-body dd{margin:0;font-size:15px}
+.case-body .lesson{margin:4px 0 0;font-size:14.5px;color:var(--accent)}
+
+/* 연구 */
+.pub{padding:18px 0;border-top:1px solid var(--line)}
+.pub:first-of-type{border-top:0;padding-top:0}
+.pub .meta{font-family:var(--font-mono);font-size:12.5px;color:var(--muted)}
+.pub h3{font-size:17px;margin:4px 0 6px;font-family:var(--font-display);font-weight:600;line-height:1.5}
+.pub p{margin:0;font-size:15px;color:var(--muted)}
+.badge{display:inline-block;font-size:11.5px;font-family:var(--font-mono);border:1px solid var(--accent);color:var(--accent);border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:1px}
+.list-plain{list-style:none;padding:0;margin:0}
+.list-plain li{display:grid;grid-template-columns:150px 1fr;gap:4px 28px;padding:12px 0;border-top:1px solid var(--line)}
+.list-plain li:first-child{border-top:0}
+.list-plain .when{font-family:var(--font-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+.list-plain span.sub{display:block;color:var(--muted);font-size:14px}
+@media (max-width:620px){.list-plain li{grid-template-columns:1fr}}
+h3.minor{font-size:15px;font-family:var(--font-display);margin:40px 0 8px;color:var(--muted);font-weight:600}
+
+/* 연락처 */
+footer{margin-top:88px;border-top:1px solid var(--line);padding-block:48px 56px}
+footer h2{font-family:var(--font-display);font-size:24px;margin:0 0 8px}
+footer p{margin:0;color:var(--muted)}
+footer .contact-row{margin-top:20px}
+footer small{display:block;margin-top:40px;color:var(--muted);font-size:12.5px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 16px;border-radius:6px;font-size:14px}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="섹션 메뉴">
+  <div class="wrap">
+    <a class="brand" href="#top">오서진</a>
+    <ul>
+      <li><a href="#about">소개</a></li>
+      <li><a href="#way">일하는 방식</a></li>
+      <li><a href="#career">경력</a></li>
+      <li><a href="#research">연구</a></li>
+      <li><a href="#projects">만든 것</a></li>
+      <li><a href="#edu">학력·자격</a></li>
+      <li><a href="#contact">연락처</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+  <header class="hero wrap">
+    <p class="eyebrow">EDUCATION PLANNING · HRD</p>
+    <h1>오서진<small>OH SEO JIN</small></h1>
+    <p class="lead">교육공학을 공부했고, 지금은 <strong>60개 학교의 교원 연수 사업</strong>을 운영합니다. 혼자 맡은 일이 막히면, 다른 사람이 이어받을 수 있는 구조로 바꿉니다.</p>
+    <ul class="tags" aria-label="관심 키워드">
+      <li>교육 운영</li><li>교수설계</li><li>온보딩·OJT 설계</li><li>AI 업무 전환</li><li>이해관계자 조율</li>
+    </ul>
+    <div class="contact-row">
+      <span class="mail">osj9793@naver.com</span>
+      <button class="btn" type="button" data-copy="osj9793@naver.com">이메일 복사</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="stats" aria-label="주요 숫자">
+      <div class="stat"><b>60<span>개교</span></b><p>한국과학창의재단 발주 교원 연수 사업 운영</p></div>
+      <div class="stat"><b>0<span>건</span></b><p>교원 직무이수 미등록<br>(등록 기록 4,718건 대조)</p></div>
+      <div class="stat"><b>200<span>명</span></b><p>3개국 국제 캡스톤 프로그램 주관</p></div>
+      <div class="stat"><b>2<span>편</span></b><p>교육공학 분야 제1저자 학술논문</p></div>
+    </div>
+  </div>
+
+  <section class="block wrap" id="about">
+    <div class="sec-head"><h2>소개</h2><span class="en">ABOUT</span></div>
+    <div class="prose">
+      <p>영어교육을 전공했고, 교생 실습에서 진도와 행정에 밀리는 수업을 보며 ‘가르치는 일’보다 ‘배움이 일어나게 하는 구조’에 관심이 생겼습니다.</p>
+      <p>대학 공학교육혁신센터에서 교육 프로그램을 기획·운영했고, 감으로 하던 일을 제대로 배우려고 한양대학교 대학원에서 교육공학(교수설계 및 교수체제)을 공부했습니다.</p>
+      <p>지금은 에듀테크 기업에서 학교 대상 교원 연수 사업을 운영하며, AI를 실무에 들여와 사업 하나를 처음부터 끝까지 꾸리고 있습니다. 사람이 잘 성장하도록 돕는 일을 조직 안에서 하고 싶어 교육기획·HRD로 방향을 잡았습니다.</p>
+    </div>
+  </section>
+
+  <section class="block wrap" id="way">
+    <div class="sec-head"><h2>일하는 방식</h2><span class="en">HOW I WORK</span></div>
+    <p class="principle">내가 병목이 되면, 내 머릿속에 있는 것을 다른 사람이 쓸 수 있는 형태로 바꿉니다.</p>
+    <div class="pattern">
+      <div>
+        <span class="when">2023 · 국제 프로그램</span>
+        <h3>영어 소통이 저 한 사람에게 몰림</h3>
+        <p>반복 문의와 핵심 안내를 영어 표준 문안으로 정리해 실무진 모두가 쓰게 했습니다.</p>
+      </div>
+      <div>
+        <span class="when">2026 · 신규 사업</span>
+        <h3>선례 없는 사업, 방대한 매뉴얼</h3>
+        <p>매뉴얼을 업무 단위로 다시 쪼개 운영 규칙 대장으로 만들고, 판단이 생길 때마다 규칙으로 남겼습니다.</p>
+      </div>
+      <div>
+        <span class="when">2026 · 팀 운영</span>
+        <h3>사람이 바뀔 때마다 사업이 멈춤</h3>
+        <p>업무를 사람과 AI로 나누고, 동료가 단계적으로 권한을 넘겨받는 온보딩 구조를 설계했습니다.</p>
+      </div>
+    </div>
+    <div class="prose" style="margin-top:28px">
+      <p><b>사람과 AI의 경계.</b> 되돌릴 수 없는 일(대외 발송·정산·삭제)은 사람이 승인하고, 대조·집계·감시 같은 반복 확인은 자동화합니다. 자동화의 목표는 사람을 빼는 것이 아니라, 사람이 판단해야 할 지점만 남기는 것이라고 생각합니다.</p>
+    </div>
+  </section>
+
+  <section class="block wrap" id="career">
+    <div class="sec-head"><h2>경력</h2><span class="en">CAREER</span></div>
+
+    <article class="job">
+      <div class="when">2026.06 – 현재</div>
+      <div>
+        <h3>팀모노리스</h3>
+        <p class="role">교육운영 · 에듀테크 기업</p>
+        <p class="impact">회사에 선례가 없던 60개교 교원 연수 사업을, <em>사람이 바뀌어도 멈추지 않는 구조</em>로 만들어 운영하고 있습니다.</p>
+        <ul class="scale" aria-label="사업 규모">
+          <li><b>60</b>개교</li>
+          <li><b>4</b>개 시·도</li>
+          <li><b>8</b>개 연수 과정</li>
+          <li><b>411</b>차시 운영</li>
+          <li><b>4,855</b>명 참여</li>
+        </ul>
+        <p class="summary">한국과학창의재단 발주 「찾아가는 학교 컨설팅」 사업에서 서울·인천·강원·제주 학교의 교원 연수를 맡고 있습니다. 코디·강사 배정, 심층면담, 연수 운영, 교원 직무이수, 정산, 결과보고까지 사업의 처음과 끝을 다룹니다.</p>
+
+        <ol class="flow" aria-label="운영 체제의 변화">
+          <li><span class="m">2026.06 · 0에서 시작</span><b>매뉴얼 200쪽을 운영 기준으로 바꿨습니다.</b><p>참고할 선례가 없어 매뉴얼을 업무 프로세스로 다시 짰고, 입사 2주 차에 주관기관 회의에서 질문 10개로 검증해 운영 기준을 세웠습니다.</p></li>
+          <li><span class="m">2026.07 · 첫 협업</span><b>AI를 써 본 적 없는 경력직 선임과 둘이 일하는 체제를 만들었습니다.</b><p>인수인계서와 시범, 「출근」「퇴근」 두 단어로 돌아가는 업무 도구를 만들어 두 사람이 하나의 업무대장으로 일했습니다.</p></li>
+          <li><span class="m">2026.09 · 운영을 이어받음</span><b>후임 인턴을 한 달 만에 부운영자로 세웠습니다.</b><p>선임 퇴사 뒤 사업 운영을 이어받았습니다. 후임에게 OJT 문서 9편과 매일 아침 자동 브리핑을 주고, 실수 없이 다음 일을 먼저 찾을 때마다 권한을 인턴 → 부운영자 → 공동운영자로 넓혔습니다.</p></li>
+          <li><span class="m">2026.10 · 사람이 빠져도</span><b>혼자서도 60개교가 멈추지 않게 했습니다.</b><p>후임이 개인 사정으로 퇴사하자, 후임이 두 달간 하던 확인 업무(서류 미비 안내 문자, 제출 메일 확인·보관)를 그 기록으로 자동화했습니다. 지금은 사람이 판단할 일만 보고받으며 혼자 운영합니다.</p></li>
+        </ol>
+        <p class="recog"><span>인정받은 것</span>사내 인턴 가운데 처음으로 연봉이 인상됐고(2026.08), 운영팀 전체 앞에서 이 업무 방식을 발표했습니다.</p>
+
+        <div class="cases">
+          <details class="case" open>
+            <summary><h4>마감 후 수정이 안 되는 교원 직무이수 관리</h4><span class="num">미등록 0건</span></summary>
+            <div class="case-body"><dl>
+              <dt>상황</dt><dd>교원 직무이수 등록은 마감 뒤에 고칠 수 없어, 한 건만 빠져도 교사가 불이익을 받습니다.</dd>
+              <dt>한 일</dt><dd>2기에 이수이력 677건을 교차검증하고 한 학교의 반려 12건을 한 명씩 정정했습니다. 검증 방식을 이름·연수 ID·개인번호 3중 매칭으로 바꿔 거짓 중복 경보를 26건에서 0건으로 줄였습니다.</dd>
+              <dt>결과</dt><dd>4기 최종 점검에서 52개교 등록 기록 4,718건을 대조해 미등록 0건으로 마감했습니다.</dd>
+            </dl></div>
+          </details>
+          <details class="case">
+            <summary><h4>경보와 반려를 그대로 넘기지 않고 원인부터 가리기</h4><span class="num">오탐 14곳 걸러냄</span></summary>
+            <div class="case-body"><dl>
+              <dt>상황</dt><dd>시스템 경보와 발주기관 반려를 그대로 학교에 넘기면, 맞게 한 사람에게까지 정정을 요청하게 됩니다.</dd>
+              <dt>한 일</dt><dd>연수 차시 경보를 원인별로 나눠 오탐 14곳을 걷어내고 진짜 문제 7건만 코디에게 요청했습니다. 발주기관 반려 30건은 등록 기록 4,201건을 전수 대조해 우리 쪽 중복 확인 기준이 좁았던 원인을 찾아 고쳤습니다.</dd>
+              <dt>결과</dt><dd>잘못된 정정 요청이 학교로 나가지 않았고, 같은 원인의 반려가 반복되지 않게 기준을 보완했습니다.</dd>
+            </dl>
+            <p class="lesson">경보는 결론이 아니라 질문입니다. 원인을 가르기 전에 사람에게 넘기면 틀린 정정이 맞는 일을 망칩니다.</p></div>
+          </details>
+          <details class="case">
+            <summary><h4>보고 수치를 세 원천으로 맞추기</h4><span class="num">학교별 차이 0</span></summary>
+            <div class="case-body"><dl>
+              <dt>상황</dt><dd>중간보고 수치가 원자료, 운영시트, 발주기관 시스템마다 조금씩 달랐습니다.</dd>
+              <dt>한 일</dt><dd>세 원천을 학교 단위로 대조해 차이가 나는 곳을 하나씩 확인했습니다.</dd>
+              <dt>결과</dt><dd>참여 4,855명·운영 411차시를 60개교 학교별 차이 0으로 맞춰 제출했습니다.</dd>
+            </dl></div>
+          </details>
+          <details class="case">
+            <summary><h4>발송 전에 사고를 막는 장치</h4><span class="num">20시간 전 차단</span></summary>
+            <div class="case-body"><dl>
+              <dt>상황</dt><dd>교사에게 나가는 문자·공지는 한 번 나가면 되돌릴 수 없습니다.</dd>
+              <dt>한 일</dt><dd>대외 발송 전에 자동 검사를 거치게 하고, 실수를 숨기지 않고 기록해 규칙으로 바꾸는 운영 규칙 대장을 운영했습니다.</dd>
+              <dt>결과</dt><dd>교사 안내 문자의 연수 시간 오류를 발송 20시간 전에 잡아 교체했습니다.</dd>
+            </dl></div>
+          </details>
+        </div>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="when">2023.03 – 2023.11</div>
+      <div>
+        <h3>영남대학교 공학교육혁신센터</h3>
+        <p class="role">연구원 · 산업통상자원부 창의융합형 공학인재양성 지원사업</p>
+        <p class="impact">한국·태국·일본 <em>3개국 200명</em>이 모인 국제 프로그램을 1년간 준비해, 영어로 열고 닫았습니다.</p>
+        <ul class="scale" aria-label="프로그램 규모">
+          <li><b>3</b>개국</li>
+          <li><b>150</b>명 학생</li>
+          <li><b>40</b>명 교수</li>
+          <li><b>4박 5일</b> 영어 진행</li>
+        </ul>
+        <p class="summary">대학생 대상 공학교육 프로그램(멘토링, 현장견학, 자율주행차 경진대회, 캡스톤디자인)을 기획부터 결과보고서 작성까지 맡았고, 그중 국제 프로그램은 직접 주관했습니다.</p>
+        <ul>
+          <li><b>Global Capstone Design Project 주관</b> — 한국·태국·일본 학생 150명과 교수 40명, 약 200명 규모 국제 프로그램을 1년간 준비해 진행했습니다.</li>
+          <li>센터의 유일한 영어 실무자로 각국 교수진과의 영어 협의를 전담하고, 4박 5일 행사를 영어로 진행(MC)했습니다.</li>
+          <li>반복 문의와 핵심 안내를 영어 표준 문안으로 정리해 실무진에 배포해, 모든 소통이 한 사람을 거치던 병목을 풀었습니다.</li>
+          <li>참여 학생 100여 명 대상 소통 채널을 새로 열고 SNS로 홍보해 참여를 늘렸습니다.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section class="block wrap" id="research">
+    <div class="sec-head"><h2>연구</h2><span class="en">RESEARCH</span></div>
+
+    <div class="pub">
+      <div class="meta">2025 · 『교육공학연구』 제41권 2호, pp.577–600 <span class="badge">제1저자</span></div>
+      <h3>국내 영어교육에서 게임기반학습의 효과에 대한 메타분석</h3>
+      <p>선행연구 48편에서 효과크기 136개를 추출해 학습 영역·학교급·처치 기간별 효과 차이를 분석했습니다. · <a href="http://dx.doi.org/10.17232/KSET.41.2.577" target="_blank" rel="noopener">DOI</a></p>
+    </div>
+    <div class="pub">
+      <div class="meta">2025 · 『컴퓨터교육학회 논문지』 제28권 5호 <span class="badge">제1저자</span></div>
+      <h3>교수자의 Serious Game 설계 지원을 위한 BBPL 플랫폼 기능 비교 분석</h3>
+      <p>블록코딩 플랫폼 5종을 교수자 경험·접근성·교수 지원 기준으로 비교했습니다. 교수자 연수 프로그램 개발의 기초 연구입니다. · <a href="https://doi.org/10.32431/kace.2025.28.5.001" target="_blank" rel="noopener">DOI</a></p>
+    </div>
+
+    <h3 class="minor">학술 발표</h3>
+    <ul class="list-plain">
+      <li><span class="when">2025.06</span><span>Meta-analysis on the effectiveness of game-based learning (GBL) in English education in South Korea · 제1저자<span class="sub">UFHRD 국제학술대회 (University Forum for Human Resource Development)</span></span></li>
+      <li><span class="when">2025.05</span><span>Cognitive Learning Mechanisms in Computational Thinking: Analysis of Block-based Serious Games on Retention, Transfer, Deep Learning · 공동저자<span class="sub">ASSERT 국제학술대회</span></span></li>
+      <li><span class="when">2025.05</span><span>교수자의 수업 단계별 ChatGPT 활용에 대한 주제범위 문헌고찰 · 공동저자(포스터)<span class="sub">한국교육정보미디어학회</span></span></li>
+      <li><span class="when">2025 동계</span><span>시리어스 게임을 활용한 IC-PBL 기업협력 사례: 넥슨 헬로메이플을 중심으로<span class="sub">한양대학교 교육공학과 제17회 동계 내부학술대회</span></span></li>
+      <li><span class="when">2024.11</span><span>교수자의 Serious Game 지원을 위한 BBPL 플랫폼 기능 비교 분석 · 제1저자<span class="sub">한국교육정보미디어학회·한국교육공학회 추계공동학술대회</span></span></li>
+    </ul>
+
+    <h3 class="minor">연구·프로젝트 참여</h3>
+    <ul class="list-plain">
+      <li><span class="when">2024.08 – 2024.12</span><span>넥슨 「헬로메이플」 코딩교육 플랫폼 분석·개선 프로젝트 · 팀장<span class="sub">7인 팀. 플랫폼을 분석하고 중학교 역사 수업용 시리어스 게임 프로토타입을 만들어 실제 수업에 적용, 넥슨 본사에서 최종 발표</span></span></li>
+      <li><span class="when">2024.05 – 2024.10</span><span>서울시 평생교육정책 공급 및 수요 분석 연구 · 연구보조원<span class="sub">서울시평생교육진흥원 과제, 한양대학교 산학협력단 수행, 응답 약 7,000명</span></span></li>
+      <li><span class="when">2025</span><span>교실혁명 선도교사 연수 연구 프로젝트 · 연구보조원<span class="sub">교사 디지털 역량 강화를 위한 연수 프로그램 설계 방향 연구</span></span></li>
+      <li><span class="when">2024.07 – 2024.08</span><span>찾아가는 학교연수 프로그램 제안 · 연구실 공동 작업<span class="sub">학생 디지털 문해력 함양 차시의 교수학습지도안 작성</span></span></li>
+    </ul>
+
+    <h3 class="minor">대학원 조교</h3>
+    <ul class="list-plain">
+      <li><span class="when">2025.03 – 2025.08</span><span>한양대학교 교육공학과 장학조교(교육 전담)</span></li>
+      <li><span class="when">2024.09 – 2024.12</span><span>4차산업혁명 혁신학과 수업 조교(TA)<span class="sub">학부 「교수학습이론」 수업의 팀 협업 활동을 설계하고 운영 매뉴얼 제작</span></span></li>
+      <li><span class="when">2024 – 2025</span><span>사범대학 교직독서실 관리 조교<span class="sub">입실 모집, 출석 관리, 이용자 설문, 임용시험 준비생 지원</span></span></li>
+    </ul>
+  </section>
+
+  <section class="block wrap" id="projects">
+    <div class="sec-head"><h2>만든 것</h2><span class="en">PROJECTS</span></div>
+    <ul class="list-plain">
+      <li><span class="when">2026.07</span><span>AI 교수단 — 수업설계안 교차 검토 도구<span class="sub">Merrill, Keller, 4C/ID, TPACK 등 교수설계 이론 8개 관점으로 연수 설계안을 검토합니다. 23차시 교원 직무연수 설계안 검토에 썼습니다.</span></span></li>
+      <li><span class="when">2026.07</span><span>정산봇 — 사업별 정산 매뉴얼 질의응답<span class="sub">정산 규정을 근거로 답하는 사내 챗봇. 7개 사업 매뉴얼로 검증했습니다.</span></span></li>
+      <li><span class="when">2026</span><span>우리의 감정 사전 — 감정 어휘 연습 앱<span class="sub">감정단어 434개 연구 목록을 바탕으로, 내가 쓴 감정 표현을 더 정확한 단어로 바꿔 보게 합니다.</span></span></li>
+      <li><span class="when">2026</span><span>비개발자를 위한 Claude Code 실전 기초 커리큘럼<span class="sub">AI 도구를 처음 쓰는 동료를 위해 직접 설계한 학습 과정</span></span></li>
+    </ul>
+  </section>
+
+  <section class="block wrap" id="edu">
+    <div class="sec-head"><h2>학력·자격</h2><span class="en">EDUCATION</span></div>
+    <ul class="list-plain">
+      <li><span class="when">2024.03 – 2026.02</span><span>한양대학교 일반대학원 교육공학과 · 석사 수료<span class="sub">교수설계 및 교수체제 전공 · 학점 4.31/4.5 · LDI Lab(지도교수 신윤희)</span></span></li>
+      <li><span class="when">2016.03 – 2023.02</span><span>영남대학교 영어교육과 · 졸업<span class="sub">학점 4.08/4.5</span></span></li>
+      <li><span class="when">2025.01</span><span>TOEIC 885</span></li>
+      <li><span class="when">2017.11</span><span>CS Leaders(관리사)</span></li>
+    </ul>
+    <h3 class="minor">다룰 줄 아는 것</h3>
+    <ul class="tags" style="margin-top:4px">
+      <li>ADDIE</li><li>Kirkpatrick 4수준 평가</li><li>요구분석</li><li>메타분석</li><li>Claude Code</li><li>Python</li><li>Google Apps Script</li><li>Git</li><li>Notion · Slack</li><li>Canva</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap" id="contact">
+  <h2>연락처</h2>
+  <p>채용·협업 관련 연락은 이메일로 부탁드립니다.</p>
+  <div class="contact-row">
+    <span class="mail">osj9793@naver.com</span>
+    <button class="btn" type="button" data-copy="osj9793@naver.com">이메일 복사</button>
+  </div>
+  <small>© 2026 오서진</small>
+</footer>
+
+<div class="toast" id="toast" role="status" hidden>이메일을 복사했습니다</div>
+
+<script>
+document.querySelectorAll('[data-copy]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var text=btn.getAttribute('data-copy');
+    var toast=document.getElementById('toast');
+    function show(msg){toast.textContent=msg;toast.hidden=false;clearTimeout(show.t);show.t=setTimeout(function(){toast.hidden=true},1800)}
+    function fallback(){
+      var mail=btn.parentNode.querySelector('.mail');
+      var r=document.createRange();r.selectNodeContents(mail);
+      var s=window.getSelection();s.removeAllRanges();s.addRange(r);
+      show('주소를 선택했습니다. Ctrl+C로 복사하세요');
+    }
+    try{
+      navigator.clipboard.writeText(text).then(function(){show('이메일을 복사했습니다')},fallback);
+    }catch(e){fallback()}
+  });
+});
+</script>
+</body>
+</html>
