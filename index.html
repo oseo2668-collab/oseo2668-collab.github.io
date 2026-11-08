@@ -18,6 +18,11 @@
   --line:#dde3e7;
   --accent:#0f6b6e;
   --accent-soft:#e2f0ef;
+  --hero-a:#0b3a3d;
+  --hero-b:#14615f;
+  --on-hero:#f2f8f7;
+  --on-hero-muted:#b5d3d0;
+  --hero-accent:#7fe0d6;
   --font-display:"IBM Plex Sans KR","Noto Sans KR",system-ui,sans-serif;
   --font-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   --font-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
@@ -52,22 +57,60 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .nav ul a{color:var(--muted);text-decoration:none;font-size:14px;white-space:nowrap}
 .nav ul a:hover{color:var(--fg)}
 
-/* 첫 화면 */
-.hero{padding-block:72px 48px}
-.eyebrow{font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;color:var(--accent);margin:0 0 16px}
-.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(34px,6vw,52px);line-height:1.2;margin:0;letter-spacing:-.01em}
-.hero h1 small{display:block;font-family:var(--font-mono);font-weight:400;font-size:15px;color:var(--muted);letter-spacing:.08em;margin-top:8px}
-.hero .lead{font-size:clamp(18px,2.4vw,21px);line-height:1.65;margin:28px 0 0;max-width:34em;text-wrap:pretty}
-.hero .lead strong{color:var(--accent);font-weight:700}
+/* 첫 화면: 색이 꽉 찬 배너 */
+.hero-band{position:relative;overflow:hidden;color:var(--on-hero);background:radial-gradient(120% 90% at 85% 10%,var(--hero-b) 0%,transparent 60%),linear-gradient(160deg,var(--hero-a),#082a2c)}
+.hero-band::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,#000 40%,transparent)}
+.hero{position:relative;padding-block:72px 40px}
+.avatar{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--on-hero);background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.35);margin-bottom:24px;box-shadow:0 0 0 8px rgba(255,255,255,.04)}
+.eyebrow{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;color:var(--hero-accent);margin:0 0 14px}
+.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(36px,6vw,56px);line-height:1.15;margin:0;letter-spacing:-.01em}
+.hero h1 small{display:block;font-family:var(--font-mono);font-weight:400;font-size:15px;color:var(--on-hero-muted);letter-spacing:.1em;margin-top:8px}
+.hero .lead{font-size:clamp(18px,2.4vw,21px);line-height:1.65;margin:26px 0 0;max-width:34em;text-wrap:pretty;color:var(--on-hero)}
+.hero .lead strong{color:var(--hero-accent);font-weight:700}
 .tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:28px 0 0}
-.tags li{font-size:13px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--surface)}
+.tags li{font-size:13px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--surface);transition:border-color .15s,color .15s}
+.tags li:hover{border-color:var(--accent);color:var(--accent)}
+.hero .tags li{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.22);color:var(--on-hero)}
+.hero .tags li:hover{border-color:var(--hero-accent);color:var(--hero-accent)}
 .contact-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:32px}
 .mail{font-family:var(--font-mono);font-size:15px;user-select:all}
-.btn{font:inherit;font-size:14px;cursor:pointer;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:6px;padding:7px 14px}
-.btn:hover{background:var(--accent-soft)}
+.btn{font:inherit;font-size:14px;cursor:pointer;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:999px;padding:8px 18px;transition:transform .15s,background .15s,box-shadow .15s}
+.btn:hover{background:var(--accent-soft);transform:translateY(-2px)}
+.hero .btn{background:var(--on-hero);color:var(--hero-a);border-color:var(--on-hero);font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.hero .btn:hover{box-shadow:0 10px 26px rgba(0,0,0,.35)}
+.scroll-cue{display:grid;place-items:center;width:38px;height:38px;margin:40px 0 0;border-radius:50%;border:1px solid rgba(255,255,255,.35);color:var(--on-hero);text-decoration:none;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* 메뉴 추가 동작 */
+.nav ul a{position:relative;transition:color .15s}
+.nav ul a.active{color:var(--accent);font-weight:600}
+.nav ul a.active::after{content:"";position:absolute;left:0;right:0;bottom:-15px;height:2px;background:var(--accent)}
+.nav-tools{margin-left:auto;display:flex;gap:8px;align-items:center}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;display:grid;place-items:center;font-size:16px;transition:transform .15s,border-color .15s}
+.icon-btn:hover{border-color:var(--accent);transform:rotate(-12deg)}
+.menu-btn{display:none}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--accent)}
+@media (max-width:760px){
+  .menu-btn{display:grid}
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:6px max(20px,env(safe-area-inset-right,0px)) 12px max(20px,env(safe-area-inset-left,0px))}
+  .nav ul.open{display:flex}
+  .nav ul a{display:block;padding:10px 0;font-size:15px}
+  .nav ul a.active::after{display:none}
+}
+
+/* 스크롤에 맞춰 떠오르기 + 마우스 반응 */
+.js .reveal{opacity:.001;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
+.lift{transition:transform .18s,box-shadow .18s,border-color .18s}
+.lift:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(10,40,45,.12);border-color:var(--accent)}
+@media (prefers-reduced-motion: reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .scroll-cue{animation:none}
+  .lift:hover,.btn:hover{transform:none}
+}
 
 /* 숫자 */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .stat{padding:24px 16px 22px 0;display:flex;flex-direction:column;gap:4px}
 .stat + .stat{padding-left:20px;border-left:1px solid var(--line)}
 .stat b{font-family:var(--font-display);font-size:34px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
@@ -177,11 +220,18 @@ footer small{display:block;margin-top:40px;color:var(--muted);font-size:12.5px}
       <li><a href="#edu">학력·자격</a></li>
       <li><a href="#contact">연락처</a></li>
     </ul>
+    <div class="nav-tools">
+      <button class="icon-btn" id="theme-btn" type="button" aria-label="밝게/어둡게 바꾸기">◐</button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false">☰</button>
+    </div>
   </div>
+  <div class="progress" id="progress"></div>
 </nav>
 
 <main id="top">
+  <div class="hero-band">
   <header class="hero wrap">
+    <div class="avatar" aria-hidden="true">오</div>
     <p class="eyebrow">EDUCATION PLANNING · HRD</p>
     <h1>오서진<small>OH SEO JIN</small></h1>
     <p class="lead">교육공학을 공부했고, 지금은 <strong>60개 학교의 교원 연수 사업</strong>을 운영합니다. 혼자 맡은 일이 막히면, 다른 사람이 이어받을 수 있는 구조로 바꿉니다.</p>
@@ -192,7 +242,9 @@ footer small{display:block;margin-top:40px;color:var(--muted);font-size:12.5px}
       <span class="mail">osj9793@naver.com</span>
       <button class="btn" type="button" data-copy="osj9793@naver.com">이메일 복사</button>
     </div>
+    <a class="scroll-cue" href="#about" aria-label="아래로">↓</a>
   </header>
+  </div>
 
   <div class="wrap">
     <div class="stats" aria-label="주요 숫자">
@@ -401,6 +453,68 @@ footer small{display:block;margin-top:40px;color:var(--muted);font-size:12.5px}
 <div class="toast" id="toast" role="status" hidden>이메일을 복사했습니다</div>
 
 <script>
+(function(){
+  var root=document.documentElement;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 밝게/어둡게 */
+  try{var saved=localStorage.getItem('theme');if(saved)root.setAttribute('data-theme',saved);}catch(e){}
+  document.getElementById('theme-btn').addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var next=cur==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+  });
+
+  /* 모바일 메뉴 */
+  var menuBtn=document.getElementById('menu-btn'),menu=document.querySelector('.nav ul');
+  menuBtn.addEventListener('click',function(){
+    var open=menu.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open));
+  });
+  menu.addEventListener('click',function(e){if(e.target.tagName==='A'){menu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');}});
+
+  /* 읽은 만큼 막대 */
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement.scrollHeight-innerHeight;bar.style.width=(h>0?scrollY/h*100:0)+'%';}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  /* 마우스를 올리면 떠오르는 카드 */
+  document.querySelectorAll('.stat,.pattern div,details.case,.pub,.recog').forEach(function(el){el.classList.add('lift');});
+
+  if(!('IntersectionObserver' in window))return;
+
+  /* 지금 읽는 메뉴 강조 */
+  var links={};document.querySelectorAll('.nav ul a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a;});
+  var spy=new IntersectionObserver(function(es){es.forEach(function(en){
+    if(!en.isIntersecting)return;
+    Object.keys(links).forEach(function(k){links[k].classList.remove('active');});
+    if(links[en.target.id])links[en.target.id].classList.add('active');
+  });},{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section[id],footer[id]').forEach(function(s){spy.observe(s);});
+
+  if(reduce)return;
+
+  /* 스크롤하면 섹션이 떠오름 (첫 화면에 보이는 것은 그대로) */
+  root.classList.add('js');
+  var rev=new IntersectionObserver(function(es,obs){es.forEach(function(en){
+    if(en.isIntersecting){en.target.classList.add('in');obs.unobserve(en.target);}
+  });},{rootMargin:'0px 0px -60px 0px'});
+  document.querySelectorAll('section.block,.job,footer').forEach(function(el){
+    if(el.getBoundingClientRect().top<innerHeight)return;
+    el.classList.add('reveal');rev.observe(el);
+  });
+  setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});},6000);
+
+  /* 숫자가 올라가는 효과 */
+  var num=new IntersectionObserver(function(es,obs){es.forEach(function(en){
+    if(!en.isIntersecting)return;obs.unobserve(en.target);
+    var node=en.target.firstChild,end=parseInt(node.nodeValue.replace(/,/g,''),10);if(!end)return;
+    var t0=null;function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/1100,1);node.nodeValue=Math.round(end*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  });},{threshold:.6});
+  document.querySelectorAll('.stat b,.scale b').forEach(function(b){if(/^\d/.test(b.firstChild.nodeValue||''))num.observe(b);});
+})();
+
 document.querySelectorAll('[data-copy]').forEach(function(btn){
   btn.addEventListener('click',function(){
     var text=btn.getAttribute('data-copy');
